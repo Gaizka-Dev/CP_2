@@ -15,3 +15,6 @@ private_key.pem
 # Logs y plan
 *.log
 *.plan
+terraform/tfplan
+*.info
+tfplan
