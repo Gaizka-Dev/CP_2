@@ -17,6 +17,6 @@ private_key.pem
 *.plan
 terraform/tfplan
 *.info
-tfplan
+*.tfplan
 
 secrets.yml
