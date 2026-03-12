@@ -1,0 +1,27 @@
+---
+- name: Install podman
+  become: true
+  apt:
+    name: podman
+    state: present
+    update_cache: yes
+
+- name: Login to Azure Container Registry
+  containers.podman.podman_login:
+    registry: acrterraformdev08032026.azurecr.io
+    username: "{{ acr_username }}"
+    password: "{{ acr_password }}"
+
+- name: Pull image from ACR
+  containers.podman.podman_image:
+    name: acrterraformdev08032026.azurecr.io/mynginx
+    tag: cp2
+
+- name: Run nginx container
+  containers.podman.podman_container:
+    name: mynginx
+    image: acrterraformdev08032026.azurecr.io/mynginx:cp2
+    state: started
+    ports:
+      - "8081:80"
+

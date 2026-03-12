@@ -1,0 +1,28 @@
+---
+- name: Pull, build, tag and push images to ACR
+  containers.podman.podman_image:
+    name: mynginx
+    tag: cp2
+    path: "{{ playbook_dir }}/files"
+    build:
+      format: docker
+      extra_args: --build-arg BUILD_DATE="{{ ansible_date_time.iso8601 }}"
+
+- name: Tag image for ACR
+  containers.podman.podman_tag:
+    image: mynginx:cp2
+    target_names:
+      - acrterraformdev08032026.azurecr.io/mynginx:cp2
+
+- name: Login to Azure Container Registry
+  containers.podman.podman_login:
+    registry: acrterraformdev08032026.azurecr.io
+    username: "{{ acr_username }}"
+    password: "{{ acr_password }}"
+  ignore_errors: true
+
+- name: Push image to ACR
+  containers.podman.podman_image:
+    name: acrterraformdev08032026.azurecr.io/mynginx
+    tag: cp2
+    push: true
