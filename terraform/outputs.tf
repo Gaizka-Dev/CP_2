@@ -14,3 +14,7 @@ output "acr_password" {
 output "acr_credentials" {
   value = azurerm_container_registry.acr.admin_username
 }
+
+output "vm_public_ip" {
+  value = azurerm_public_ip.public_ip.ip_address
+}
