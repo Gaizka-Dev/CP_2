@@ -32,6 +32,20 @@ resource "azurerm_network_security_rule" "http_rule" {
   network_security_group_name = azurerm_network_security_group.nsg_vm.name
 }
 
+resource "azurerm_network_security_rule" "http_rule_8081" {
+  name                        = "Allow-HTTP-nginx"
+  priority                    = 1003
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "8081"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg.name
+  network_security_group_name = azurerm_network_security_group.nsg_vm.name
+}
+
 resource "azurerm_network_interface_security_group_association" "nic_nsg" {
   network_interface_id      = azurerm_network_interface.nic.id
   network_security_group_id = azurerm_network_security_group.nsg_vm.id
