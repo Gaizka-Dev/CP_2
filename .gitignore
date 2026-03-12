@@ -10,6 +10,7 @@ terraform/.terraform/
 *.tfstate.backup
 .terraform/
 terraform.tfvars
+terraform/.terraform.lock.hcl
 private_key.pem
 
 # Logs y plan
