@@ -9,3 +9,13 @@ EOF
 
   filename = "../ansible/inventory"
 }
+
+resource "local_file" "ansible_secrets" {
+  content = <<EOF
+acr_login_server: ${azurerm_container_registry.acr.login_server}
+acr_username: ${azurerm_container_registry.acr.admin_username}
+acr_password: ${azurerm_container_registry.acr.admin_password}
+EOF
+
+  filename = "../ansible/secrets.yml"
+}
